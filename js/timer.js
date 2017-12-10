@@ -2,9 +2,9 @@
 
     var Timer = {
         intervalID: 'undefined',
-        timerSettings: 'undefined',
-        startTime: "7:30 AM",
-        endTime: "8:30 PM"
+        startTime: "7:30",
+        endTime: "16:30",
+        compOrRemain: "complete"
     };
 
     function init() {
@@ -27,50 +27,58 @@
     function startTimer() {
         var sT = localStorage.getItem('startTime');
         var eT = localStorage.getItem('endTime');
+        var cOR = localStorage.getItem('compOrRemain');
 
-        if (sT && eT) {
+        if (sT !== null && eT !== null && cOR !== "") {
             Timer.startTime = sT;
             Timer.endTime = eT;
+            Timer.compOrRemain = cOR;
         }
+
         $('#startTime').val(Timer.startTime);
         $('#endTime').val(Timer.endTime);
+        $('.radioButtons :input[value="' + cOR + '"]').prop("checked", true);
+
+        updateTimer();
 
         Timer.intervalID = setInterval(function() {
             updateTimer();
         }, (1000));
 
-        console.log('intervalID = ' + Timer.intervalID);
     }
 
     function updateTimer() {
         // TODO:
         // what about if time is later than now?
-        // this section should be optimized
         var start = moment(Timer.startTime, 'HH:mm').toDate();
         var end = moment(Timer.endTime, 'HH:mm').toDate();
-        var now = moment();
+        var now = moment().toDate();
 
-        var complete = Math.round(((now - start) / (end - start)) * 100);
+        var perToGo = Math.round(((now - start) / (end - start)) * 100);
+        var perLeft = 100 - perToGo; 
+        var perMetric = Timer.compOrRemain === "complete" ? perToGo : perLeft;
+
         var ms = moment(end, "DD/MM/YYYY HH:mm:ss").diff(moment(now, "DD/MM/YYYY HH:mm:ss"));
         var d = moment.duration(ms);
         var dA = Math.floor(d.asHours()) > 0 ? Math.floor(d.asHours()) + ":" : "";
-        var toGo = dA + moment.utc(ms).format("mm:ss");
+        var timeLeft = dA + moment.utc(ms).format("mm:ss");
 
-        if (complete >= 100 || complete < 0) {
-            complete = 100;
-            toGo = "0:00:00";
+        if (perMetric >= 100 || perMetric < 0) {
             timerComplete();
+        } else {
+            $('.container').html('<h1>' + perMetric + '<span>%</span></h1><h2>' + timeLeft + '</h2>');
         }
 
-        $('.container').html('<h1>' + complete + '<span>%</span></h1><h2>' + toGo + '</h2>');
     }
 
     function saveSettings() {
         var startTime = $('#startTime').val();
         var endTime = $('#endTime').val();
+        var compOrRemain = $('input[type="radio"]:checked').val();
 
         localStorage.setItem('startTime', startTime);
         localStorage.setItem('endTime', endTime);
+        localStorage.setItem('compOrRemain', compOrRemain);
 
         toggleConfig();
         clearInterval(Timer.intervalID);
@@ -79,8 +87,8 @@
 
     function timerComplete() {
         // throw a party here, colors
+        $('.container').html('<h3>You done!</h3>');
         clearInterval(Timer.intervalID);
-        console.log('You did it!');
     }
 
     function toggleConfig() {
