@@ -1,5 +1,4 @@
-;
-(function ($, window, moment) {
+;(function ($, window, moment) {
 
     var Timer = {
         intervalID: 'undefined',
@@ -36,7 +35,7 @@
         $('#startTime').val(Timer.startTime);
         $('#endTime').val(Timer.endTime);
 
-        Timer.intervalID = setInterval(() => {
+        Timer.intervalID = setInterval(function() {
             updateTimer();
         }, (1000));
 
@@ -47,7 +46,6 @@
         // TODO:
         // what about if time is later than now?
         // this section should be optimized
-        // paper.js effect on canvas bg, swap text to canvas
         var start = moment(Timer.startTime, 'HH:mm').toDate();
         var end = moment(Timer.endTime, 'HH:mm').toDate();
         var now = moment();
