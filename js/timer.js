@@ -42,7 +42,10 @@
     }
 
     function updateTimer() {
+        // TODO:
         // what about if time is later than now?
+        // this section should be optimized
+        // paper.js effect on canvas bg, swap text to canvas
         var start = moment(Timer.startTime, 'HH:mm').toDate();
         var end = moment(Timer.endTime, 'HH:mm').toDate();
         var now = moment();
@@ -55,6 +58,7 @@
 
         if (complete >= 100 || complete < 0) {
             complete = 100;
+            toGo = "0:00:00";
             timerComplete();
         }
 
@@ -74,6 +78,7 @@
     }
 
     function timerComplete() {
+        // throw a party here, colors
         clearInterval(Timer.intervalID);
         console.log('You did it!');
     }
