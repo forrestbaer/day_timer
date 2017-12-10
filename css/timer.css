@@ -41,6 +41,10 @@ input[type="text"] {
     border-radius: .25rem;
 }
 
+input[type="text"].error {
+    background: #900;
+}
+
 h1 {
     font-size: 8rem;
     margin:0;

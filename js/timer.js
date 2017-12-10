@@ -1,7 +1,7 @@
 ;(function ($, window, moment) {
 
     var Timer = {
-        intervalID: 'undefined',
+        intervalID: 0,
         startTime: "7:30",
         endTime: "16:30",
         compOrRemain: "complete"
@@ -41,21 +41,19 @@
 
         updateTimer();
 
-        Timer.intervalID = setInterval(function() {
+        Timer.intervalID = setInterval(function () {
             updateTimer();
         }, (1000));
 
     }
 
     function updateTimer() {
-        // TODO:
-        // what about if time is later than now?
         var start = moment(Timer.startTime, 'HH:mm').toDate();
         var end = moment(Timer.endTime, 'HH:mm').toDate();
         var now = moment().toDate();
 
         var perToGo = Math.round(((now - start) / (end - start)) * 100);
-        var perLeft = 100 - perToGo; 
+        var perLeft = 100 - perToGo;
         var perMetric = Timer.compOrRemain === "complete" ? perToGo : perLeft;
 
         var ms = moment(end, "DD/MM/YYYY HH:mm:ss").diff(moment(now, "DD/MM/YYYY HH:mm:ss"));
@@ -76,13 +74,19 @@
         var endTime = $('#endTime').val();
         var compOrRemain = $('input[type="radio"]:checked').val();
 
-        localStorage.setItem('startTime', startTime);
-        localStorage.setItem('endTime', endTime);
-        localStorage.setItem('compOrRemain', compOrRemain);
+        if (moment(endTime, 'HH:mm').isBefore(moment(startTime, 'HH:mm'))) {
+            $('#startTime').addClass('error');
+        } else {
+            $('#startTime').removeClass('error');
+            localStorage.setItem('startTime', startTime);
+            localStorage.setItem('endTime', endTime);
+            localStorage.setItem('compOrRemain', compOrRemain);
 
-        toggleConfig();
-        clearInterval(Timer.intervalID);
-        startTimer();
+            toggleConfig();
+            clearInterval(Timer.intervalID);
+            startTimer();
+        }
+
     }
 
     function timerComplete() {
