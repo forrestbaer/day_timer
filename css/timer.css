@@ -1,0 +1,68 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+*:focus {
+    outline: none;
+}
+
+a:hover,
+button:hover {
+    cursor: pointer;
+}
+
+#dayTimer {}
+
+#configure {
+    border: none;
+    background:url(../images/icon-clock.png) center center no-repeat;
+    background-size: cover;
+    line-height: 1rem;
+    position: absolute;
+    height: 1.5rem;
+    width: 1.5rem;
+    top: .8rem;
+    left: .8rem;
+    z-index: 501;
+    opacity: .05;
+    -webkit-transition: opacity .5s ease;
+    transition: opacity .5s ease;
+}
+
+#configure:hover {
+    opacity: .75;
+}
+
+.container {
+    text-align: center;
+    width: 450px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+#configPanel {
+    position: absolute;
+    top: -4rem;
+    left: 0;
+    width: 100%;
+    background: #44a193;
+    padding: 1rem 1rem 1rem 3.5rem;
+    -webkit-transition: top .5s ease;
+    transition: top .5s ease;
+    z-index: 500;
+}
+
+#configPanel.visible {
+    display: block;
+    top: 0rem;
+}
+
+#configPanel.visible + #configure {
+    opacity: 1;
+}
