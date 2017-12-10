@@ -39,6 +39,8 @@
         Timer.intervalID = setInterval(() => {
             updateTimer();
         }, (1000));
+
+        console.log('intervalID = ' + Timer.intervalID);
     }
 
     function updateTimer() {
