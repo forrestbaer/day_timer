@@ -1,4 +1,5 @@
-;(function ($, window, moment) {
+;
+(function ($, window, moment) {
 
     var Timer = {
         intervalID: 'undefined',
@@ -8,6 +9,13 @@
     };
 
     function init() {
+        $('#startTime').clockpicker({
+            autoclose: true
+        });
+        $('#endTime').clockpicker({
+            autoclose: true
+        });
+
         setWatches();
         startTimer();
     }
@@ -34,21 +42,23 @@
     }
 
     function updateTimer() {
-        var start = moment(Timer.startTime, 'HH:mm A').toDate();
-        var end = moment(Timer.endTime, 'HH:mm A').toDate();
+        // what about if time is later than now?
+        var start = moment(Timer.startTime, 'HH:mm').toDate();
+        var end = moment(Timer.endTime, 'HH:mm').toDate();
         var now = moment();
 
         var complete = Math.round(((now - start) / (end - start)) * 100);
-        var ms = moment(end,"DD/MM/YYYY HH:mm:ss").diff(moment(now,"DD/MM/YYYY HH:mm:ss"));
+        var ms = moment(end, "DD/MM/YYYY HH:mm:ss").diff(moment(now, "DD/MM/YYYY HH:mm:ss"));
         var d = moment.duration(ms);
-        var toGo = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss")
+        var dA = Math.floor(d.asHours()) > 0 ? Math.floor(d.asHours()) + ":" : "";
+        var toGo = dA + moment.utc(ms).format("mm:ss");
 
         if (complete >= 100 || complete < 0) {
             complete = 100;
             timerComplete();
         }
 
-        $('.container').html('<h1>' + complete + '%</h1><h2>' + toGo + '</h2>');
+        $('.container').html('<h1>' + complete + '<span>%</span></h1><h2>' + toGo + '</h2>');
     }
 
     function saveSettings() {
@@ -58,6 +68,7 @@
         localStorage.setItem('startTime', startTime);
         localStorage.setItem('endTime', endTime);
 
+        toggleConfig();
         clearInterval(Timer.intervalID);
         startTimer();
     }

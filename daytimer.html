@@ -5,22 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <script src="js/vendor/moment.min.js"></script>
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="js/vendor/jquery-clockpicker.min.js"></script>
     <script src="js/timer.js"></script>
-    <link rel="stylesheet" href="css/timer.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-clockpicker.min.css" />
+    <link rel="stylesheet" href="css/timer.css" />
+
     <title>Hello!</title>
 </head>
 
 <body>
 
+    <canvas id="canvas"> </canvas>
     <div id="dayTimer">
         <div id="configPanel">
-            <form>
-                <input id="startTime" type="text" name="" value="" placeholder="Start Time" />
-                <input id="endTime" type="text" name="" value="" placeholder="End Time" />
-                <button id="saveTimes">Save</button>
-            </form>
+            <label for="startTime">Start Time:</label>
+            <input id="startTime" type="text" value="" placeholder="Start Time" />
+            <label for="endTime">End Time:</label>
+            <input id="endTime" type="text" value="" placeholder="End Time" />
+            <button id="saveTimes">Save</button>
         </div>
         <button id="configure"></button>
         <div class="container">
