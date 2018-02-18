@@ -79,10 +79,11 @@
             };
             tD[idx].classes = [];
             loc.forEach(function (cN) {
-                if (cN.name.indexOf('Yoga 2') > 0) {
+                if (cN.name.indexOf('Yoga 2') > 0 || cN.name.indexOf('Yoga 1') > 0) {
                     var photo = cN.teacher.image_url ? cN.teacher.image_url : 'images/logo-circle.png';
+                    var shortName = cN.name.indexOf('Yoga 2') > 0 ? 'C2' : 'C1';
                     tD[idx].classes.push({
-                        className: cN.name,
+                        className: shortName,
                         start: moment.utc(new Date(cN.start_date_time)).format('h:mm a'),
                         start2: moment.utc(new Date(cN.start_date_time)),
                         teacher: cN.teacher.first_name,
@@ -104,7 +105,7 @@
             toAppend += ('<h2>' + studio.studioName + '</h2>\n');
             studio.classes.forEach(function (aClass) {
                 var passed = moment(new Date()).isBefore(aClass.start2) ? '' : 'passed';
-                toAppend += '<div class="'+passed+'"><img src="' + aClass.teacherPhoto + '" /><h3>' + aClass.teacher + '<br/>' + aClass.start + '</h3></div>\n';
+                toAppend += '<div class="'+passed+'"><img src="' + aClass.teacherPhoto + '" /><h3>' + aClass.className + ' ' + aClass.teacher + '<br/>' + aClass.start + '</h3></div>\n';
             });
             toAppend += '</div>\n';
         });
