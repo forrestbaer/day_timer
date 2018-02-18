@@ -84,6 +84,7 @@
                     tD[idx].classes.push({
                         className: cN.name,
                         start: moment.utc(new Date(cN.start_date_time)).format('h:mm a'),
+                        start2: moment.utc(new Date(cN.start_date_time)),
                         teacher: cN.teacher.first_name,
                         teacherPhoto: photo
                     });
@@ -102,9 +103,8 @@
             toAppend += '<div class="aRow">\n';
             toAppend += ('<h2>' + studio.studioName + '</h2>\n');
             studio.classes.forEach(function (aClass) {
-                var theTime = moment(aClass.start);
-                var passed = moment(new Date()).isBefore(aClass.start) ? '' : 'passed';
-                toAppend += '<div class="'+passed+'"><img src="' + aClass.teacherPhoto + '" /><h3>' + aClass.teacher + '</h3><h4>' + aClass.start + '</h4></div>\n';
+                var passed = moment(new Date()).isBefore(aClass.start2) ? '' : 'passed';
+                toAppend += '<div class="'+passed+'"><img src="' + aClass.teacherPhoto + '" /><h3>' + aClass.teacher + '<br/>' + aClass.start + '</h3></div>\n';
             });
             toAppend += '</div>\n';
         });
