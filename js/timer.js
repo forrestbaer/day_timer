@@ -64,7 +64,7 @@
         if (perMetric >= 100 || perMetric < 0) {
             timerComplete();
         } else {
-            $('.container').html('<h1>' + perMetric + '<span>%</span></h1><h2>' + timeLeft + '</h2>');
+            $('.timeContainer').html('<h1>' + perMetric + '<span>%</span></h1><h2>' + timeLeft + '</h2>');
         }
 
     }

@@ -10,6 +10,7 @@
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="js/vendor/jquery-clockpicker.min.js"></script>
     <script src="js/timer.js"></script>
+    <script src="js/corepower.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery-clockpicker.min.css" />
@@ -23,9 +24,9 @@
     <div id="dayTimer">
         <div id="configPanel">
             <label for="startTime">Start Time:</label>
-            <input id="startTime" type="text" value="" placeholder="Start Time" />
+            <input tabindex=-1 id="startTime" type="text" value="" placeholder="Start Time" />
             <label for="endTime">End Time:</label>
-            <input id="endTime" type="text" value="" placeholder="End Time" />
+            <input tabindex=-1 id="endTime" type="text" value="" placeholder="End Time" />
             <span class="radioButtons">
                 <input type="radio" name="compOrRemain" value="complete" id="rCompleted" checked>
                 <label for="rCompleted">% Complete</label>
@@ -35,8 +36,8 @@
             <button id="saveTimes">Save</button>
         </div>
         <button id="configure"></button>
-        <div class="container">
-        </div>
+        <div class="timeContainer"></div>
+        <div class="yogaSelector"></div>
     </div>
 
 </body>

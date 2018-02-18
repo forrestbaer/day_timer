@@ -94,7 +94,7 @@ h2 {
     opacity: .75;
 }
 
-.container {
+.timeContainer {
     text-align: center;
     width: 450px;
     margin: 0 auto;
@@ -103,6 +103,73 @@ h2 {
     left: 50%;
     -webkit-transform: translate3d(-50%, -50%, 0);
             transform: translate3d(-50%, -50%, 0);
+}
+
+.yogaSelector {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    background: rgba(5,5,5,0.99);
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.yogaSelector.visible {
+    opacity: 1;
+    z-index: 502;
+}
+
+.yogaSelector h2 {
+    display: block;
+    text-align:center;
+    color: #ccc;
+    letter-spacing: 2px;
+    width: 50%;
+    margin: 30px auto;
+    border-bottom: 1px solid #444;
+    padding-bottom:15px;
+}
+
+.yogaSelector .aRow {
+    text-align: center;
+    margin: 80px 0;
+}
+
+.yogaSelector .aRow div {
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    max-width: 12%;
+    font-size: 80%;
+    vertical-align: top;
+    padding:0 15px;
+}
+
+.yogaSelector .aRow div.passed {
+    opacity: 0.5;
+}
+
+.yogaSelector .aRow div h3,
+.yogaSelector .aRow div h4 {
+    font-weight: 200 !important;
+    margin: 9px 5px;
+}
+
+.yogaSelector .aRow div img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.yogaSelector button {
+    padding: 5px 12px;
+    background: transparent;
+    border-radius: 8px;
 }
 
 #configPanel {
