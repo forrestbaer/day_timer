@@ -9,8 +9,7 @@
     }
 
     function setWatches() {
-
-        $(document).keyup(function(e) {
+        $(document).keyup(function (e) {
             if (e.keyCode === 27) {
                 getClasses();
             }
@@ -81,22 +80,23 @@
             };
             tD[idx].classes = [];
             loc.forEach(function (cN) {
-                if (cN.name.indexOf('Yoga 2') > 0 || cN.name.indexOf('Yoga 1') > 0) {
-                    var photo = cN.teacher.image_url ? cN.teacher.image_url : 'images/logo-circle.png';
-                    var shortName = cN.name.indexOf('Yoga 2') > 0 ? 'C2' : 'C1';
-                    tD[idx].classes.push({
-                        className: shortName,
-                        start: moment.utc(new Date(cN.start_date_time)).format('h:mm a'),
-                        start2: moment.utc(new Date(cN.start_date_time)),
-                        start3: cN.start_date_time,
-                        teacher: cN.teacher.first_name,
-                        teacherPhoto: photo
-                    });
-                }
+                var photo = cN.teacher.image_url ? cN.teacher.image_url : 'images/logo-circle.png';
+                tD[idx].classes.push({
+                    className: cN.name,
+                    start: moment.utc(new Date(cN.start_date_time)).format('h:mm a'),
+                    start2: moment.utc(new Date(cN.start_date_time)),
+                    end: moment.utc(new Date(cN.end_date_time)).format('h:mm a'),
+                    teacher: cN.teacher.first_name,
+                    teacherPhoto: photo
+                });
             });
         });
 
         return tD;
+    }
+
+    function showTeacherImage() {
+
     }
 
     function renderData(tD) {
@@ -104,13 +104,19 @@
         var now = moment(new Date()).utc();
 
         tD.forEach(function (studio) {
-            toAppend += '<div class="aRow">\n';
+            toAppend += '<div class="aStudio">\n';
             toAppend += ('<h2>' + studio.studioName + '</h2>\n');
+            toAppend += '<table><thead><tr><th>Class</th><th>Start</th><th>End</th><th>Instructor</th></tr></thead>';
             studio.classes.forEach(function (aClass) {
-                var passed = now.isBefore(aClass.start2.add(7,'h')) ? '' : 'passed';
-                toAppend += '<div class="'+passed+'"><img src="' + aClass.teacherPhoto + '" /><h3>' + aClass.className + ' ' + aClass.teacher + '<br/>' + aClass.start + '</h3></div>\n';
+                var passed = now.isBefore(aClass.start2.add(7, 'h')) ? '' : 'passed';
+                toAppend += '<tr class="'+passed+'">';
+                toAppend += '<td>' + aClass.className + '</td>';
+                toAppend += '<td>' + aClass.start + '</td>';
+                toAppend += '<td>' + aClass.end + '</td>';
+                toAppend += '<td class="instructor"><img class="instructorPhoto" src="' + aClass.teacherPhoto + '">' + aClass.teacher + '</td>';
+                toAppend += '</tr>';
             });
-            toAppend += '</div>\n';
+            toAppend += '</table></div>\n';
         });
 
         $('.yogaSelector').html("").append(toAppend);
