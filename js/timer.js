@@ -91,7 +91,7 @@
 
     function timerComplete() {
         // throw a party here, colors
-        $('.container').html('<h3>You done!</h3>');
+        $('.timeContainer').html('<h2>You done!</h2>');
         clearInterval(Timer.intervalID);
     }
 
